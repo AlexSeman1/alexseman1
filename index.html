@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Dashboard</title>
+  <style>
+    :root {
+      --bg-color: #f4f6f8;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+      --primary-color: #4f46e5;
+      --primary-hover: #4338ca;
+      --accent-color: #10b981;
+      --danger-color: #ef4444;
+      --border-color: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding: 20px;
+    }
+
+    header {
+      max-width: 900px;
+      margin: 0 auto 20px auto;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 15px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #6b7280;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      background-color: var(--border-color);
+    }
+
+    .tab-btn.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tab-content {
+      display: none;
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Form Controls */
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    input, select, button {
+      padding: 10px 14px;
+      font-size: 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      outline: none;
+    }
+
+    input[type="text"], input[type="number"], select {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    button.btn-add {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button.btn-add:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* List Items */
+    ul {
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: #fafafa;
+    }
+
+    .delete-btn {
+      background-color: transparent;
+      color: var(--danger-color);
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Daily Goals & Streaks */
+    .streak-badge {
+      background-color: #fef3c7;
+      color: #d97706;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    /* Life Goals Progress */
+    .progress-bar-container {
+      width: 100%;
+      background-color: var(--border-color);
+      border-radius: 8px;
+      height: 10px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: var(--accent-color);
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    /* Financial Overview */
+    .finance-summary {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .summary-card {
+      flex: 1;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      background: #f9fafb;
+      border: 1px solid var(--border-color);
+    }
+
+    .summary-card h4 {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 5px;
+    }
+
+    .summary-card p {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .income { color: var(--accent-color); }
+    .expense { color: var(--danger-color); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Personal Dashboard</h1>
+    <nav>
+      <button class="tab-btn active" onclick="switchTab('daily')">Daily Goals & Streaks</button>
+      <button class="tab-btn" onclick="switchTab('life')">Life Goals</button>
+      <button class="tab-btn" onclick="switchTab('finance')">Financial Tracker</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- TAB 1: DAILY GOALS -->
+    <section id="daily" class="tab-content active">
+      <h2>Daily Goals & Habit Tracker</h2>
+      <p style="margin-bottom: 15px; color: #6b7280;">Check off your tasks each day to build your streak!</p>
+      
+      <div class="input-group">
+        <input type="text" id="daily-input" placeholder="e.g., Read for 20 mins, Workout...">
+        <button class="btn-add" onclick="addDailyGoal()">Add Goal</button>
+      </div>
+
+      <ul id="daily-list"></ul>
+    </section>
+
+    <!-- TAB 2: LIFE GOALS -->
+    <section id="life" class="tab-content">
+      <h2>Larger Life Goals</h2>
+      <p style="margin-bottom: 15px; color: #6b7280;">Track major milestones and monitor your progress.</p>
+
+      <div class="input-group">
+        <input type="text" id="life-input" placeholder="Goal (e.g., Save for a house, Learn Spanish)">
+        <input type="number" id="life-progress-input" placeholder="Progress % (0-100)" min="0" max="100">
+        <button class="btn-add" onclick="addLifeGoal()">Add Goal</button>
+      </div>
+
+      <ul id="life-list"></ul>
+    </section>
+
+    <!-- TAB 3: FINANCE TRACKER -->
+    <section id="finance" class="tab-content">
+      <h2>Income & Expense Tracker</h2>
+      <p style="margin-bottom: 15px; color: #6b7280;">Monitor your cash flow and total balance.</p>
+
+      <div class="finance-summary">
+        <div class="summary-card">
+          <h4>Total Income</h4>
+          <p class="income" id="total-income">$0.00</p>
+        </div>
+        <div class="summary-card">
+          <h4>Total Expenses</h4>
+          <p class="expense" id="total-expense">$0.00</p>
+        </div>
+        <div class="summary-card">
+          <h4>Net Balance</h4>
+          <p id="net-balance">$0.00</p>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="fin-desc" placeholder="Description (e.g., Salary, Rent)">
+        <input type="number" id="fin-amount" placeholder="Amount ($)" step="0.01">
+        <select id="fin-type">
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+        <button class="btn-add" onclick="addTransaction()">Add Entry</button>
+      </div>
+
+      <ul id="finance-list"></ul>
+    </section>
+  </main>
+
+  <script>
+    // --- Navigation ---
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    // --- Local Storage Helpers ---
+    function getData(key) {
+      return JSON.parse(localStorage.getItem(key)) || [];
+    }
+    function setData(key, data) {
+      localStorage.setItem(key, JSON.stringify(data));
+    }
+
+    // --- Tab 1: Daily Goals & Streaks ---
+    function renderDailyGoals() {
+      const goals = getData('dailyGoals');
+      const list = document.getElementById('daily-list');
+      list.innerHTML = '';
+
+      goals.forEach((goal, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div>
+            <input type="checkbox" ${goal.completed ? 'checked' : ''} onchange="toggleDailyGoal(${index})">
+            <span style="${goal.completed ? 'text-decoration: line-through; color: #9ca3af;' : ''}">${goal.text}</span>
+            <span class="streak-badge">🔥 ${goal.streak} days</span>
+          </div>
+          <button class="delete-btn" onclick="deleteDailyGoal(${index})">✕</button>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function addDailyGoal() {
+      const input = document.getElementById('daily-input');
+      if (!input.value.trim()) return;
+
+      const goals = getData('dailyGoals');
+      goals.push({ text: input.value.trim(), completed: false, streak: 0 });
+      setData('dailyGoals', goals);
+      input.value = '';
+      renderDailyGoals();
+    }
+
+    function toggleDailyGoal(index) {
+      const goals = getData('dailyGoals');
+      goals[index].completed = !goals[index].completed;
+      if (goals[index].completed) {
+        goals[index].streak += 1;
+      } else {
+        goals[index].streak = Math.max(0, goals[index].streak - 1);
+      }
+      setData('dailyGoals', goals);
+      renderDailyGoals();
+    }
+
+    function deleteDailyGoal(index) {
+      const goals = getData('dailyGoals');
+      goals.splice(index, 1);
+      setData('dailyGoals', goals);
+      renderDailyGoals();
+    }
+
+    // --- Tab 2: Life Goals ---
+    function renderLifeGoals() {
+      const goals = getData('lifeGoals');
+      const list = document.getElementById('life-list');
+      list.innerHTML = '';
+
+      goals.forEach((goal, index) => {
+        const li = document.createElement('li');
+        li.style.flexDirection = 'column';
+        li.style.alignItems = 'stretch';
+        li.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <strong>${goal.text}</strong>
+            <div>
+              <span>${goal.progress}%</span>
+              <button class="delete-btn" onclick="deleteLifeGoal(${index})" style="margin-left: 10px;">✕</button>
+            </div>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" style="width: ${goal.progress}%;"></div>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function addLifeGoal() {
+      const textInput = document.getElementById('life-input');
+      const progressInput = document.getElementById('life-progress-input');
+      
+      const text = textInput.value.trim();
+      let progress = parseInt(progressInput.value) || 0;
+      progress = Math.min(100, Math.max(0, progress));
+
+      if (!text) return;
+
+      const goals = getData('lifeGoals');
+      goals.push({ text, progress });
+      setData('lifeGoals', goals);
+
+      textInput.value = '';
+      progressInput.value = '';
+      renderLifeGoals();
+    }
+
+    function deleteLifeGoal(index) {
+      const goals = getData('lifeGoals');
+      goals.splice(index, 1);
+      setData('lifeGoals', goals);
+      renderLifeGoals();
+    }
+
+    // --- Tab 3: Finance Tracker ---
+    function renderFinance() {
+      const transactions = getData('transactions');
+      const list = document.getElementById('finance-list');
+      list.innerHTML = '';
+
+      let totalIncome = 0;
+      let totalExpense = 0;
+
+      transactions.forEach((item, index) => {
+        if (item.type === 'income') totalIncome += item.amount;
+        else totalExpense += item.amount;
+
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div>
+            <strong>${item.desc}</strong>
+          </div>
+          <div>
+            <span class="${item.type}">${item.type === 'income' ? '+' : '-'}$${item.amount.toFixed(2)}</span>
+            <button class="delete-btn" onclick="deleteTransaction(${index})" style="margin-left: 10px;">✕</button>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+
+      document.getElementById('total-income').innerText = `$${totalIncome.toFixed(2)}`;
+      document.getElementById('total-expense').innerText = `$${totalExpense.toFixed(2)}`;
+      document.getElementById('net-balance').innerText = `$${(totalIncome - totalExpense).toFixed(2)}`;
+    }
+
+    function addTransaction() {
+      const descInput = document.getElementById('fin-desc');
+      const amountInput = document.getElementById('fin-amount');
+      const typeInput = document.getElementById('fin-type');
+
+      const desc = descInput.value.trim();
+      const amount = parseFloat(amountInput.value);
+      const type = typeInput.value;
+
+      if (!desc || isNaN(amount) || amount <= 0) return;
+
+      const transactions = getData('transactions');
+      transactions.push({ desc, amount, type });
+      setData('transactions', transactions);
+
+      descInput.value = '';
+      amountInput.value = '';
+      renderFinance();
+    }
+
+    function deleteTransaction(index) {
+      const transactions = getData('transactions');
+      transactions.splice(index, 1);
+      setData('transactions', transactions);
+      renderFinance();
+    }
+
+    // --- Initial Load ---
+    renderDailyGoals();
+    renderLifeGoals();
+    renderFinance();
+  </script>
+</body>
+</html>
