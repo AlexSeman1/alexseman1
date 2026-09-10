@@ -1,0 +1,21 @@
+```json
+{
+  "name": "The Vigil - Personal Ledger",
+  "short_name": "The Vigil",
+  "description": "A personal tracker for daily rounds, long goals, finances, and gambling sessions.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070a10",
+  "theme_color": "#070a10",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
+```
