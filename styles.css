@@ -183,6 +183,24 @@ aside {
   border-top: 1px solid var(--border);
 }
 
+.side-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.side-actions .ghost-btn,
+.side-actions .file-btn {
+  width: 100%;
+}
+
+.file-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .clear-btn {
   width: 100%;
   margin-top: 12px;
