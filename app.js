@@ -453,6 +453,67 @@ function registerServiceWorker() {
   });
 }
 
+function exportData() {
+  const dataStr = JSON.stringify(state, null, 2);
+  const blob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `vigil-ledger-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function importData(event) {
+  const input = event.target;
+  const file = input.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    let incoming;
+    try {
+      incoming = JSON.parse(reader.result);
+    } catch (err) {
+      alert('That file is not valid JSON.');
+      input.value = '';
+      return;
+    }
+    if (!incoming || !Array.isArray(incoming.groups) || !Array.isArray(incoming.transactions)) {
+      alert('That file does not look like a Vigil ledger export.');
+      input.value = '';
+      return;
+    }
+
+    incoming.groups.forEach(group => {
+      if (!group || !group.id || !group.name || !group.type) return;
+      const existing = groupById(group.id);
+      if (existing) {
+        existing.name = group.name;
+        existing.type = group.type;
+      } else {
+        state.groups.push({ id: group.id, name: group.name, type: group.type });
+      }
+    });
+
+    const existingTxIds = new Set(state.transactions.map(t => t.id));
+    incoming.transactions.forEach(tx => {
+      if (!tx || !tx.id || existingTxIds.has(tx.id)) return;
+      state.transactions.push(tx);
+      existingTxIds.add(tx.id);
+    });
+
+    saveState();
+    editingGroupId = null;
+    refreshAll();
+    input.value = '';
+    alert('Import complete.');
+  };
+  reader.readAsText(file);
+}
+
 function setupClearAll() {
   document.getElementById('clear-all').addEventListener('click', () => {
     if (!confirm('Clear all financial data? This cannot be undone.')) return;
@@ -470,6 +531,9 @@ document.addEventListener('DOMContentLoaded', () => {
   setupInstallButton();
   setupClearAll();
   registerServiceWorker();
+
+  document.getElementById('export-data').addEventListener('click', exportData);
+  document.getElementById('import-data-input').addEventListener('change', importData);
 
   const dateInput = document.getElementById('tx-date');
   if (dateInput) dateInput.valueAsDate = new Date();

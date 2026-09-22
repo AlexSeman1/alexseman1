@@ -32,7 +32,12 @@
       <p class="side-note">Revenue and expenses, sorted into the account groups you define.</p>
 
       <div class="side-status">
-        Data stays on this device.
+        Data stays on this device. Export and import to move it between your phone and computer.
+        <div class="side-actions">
+          <button class="ghost-btn" id="export-data" type="button">Export Data</button>
+          <label class="ghost-btn file-btn" for="import-data-input">Import Data</label>
+          <input type="file" id="import-data-input" accept="application/json" class="sr-only">
+        </div>
         <button class="clear-btn" id="clear-all" type="button">Clear all data</button>
       </div>
     </aside>
