@@ -1,8 +1,9 @@
-```javascript
-const CACHE_NAME = 'the-vigil-v1';
+const CACHE_NAME = 'the-vigil-v2';
 const APP_SHELL = [
   './',
   './index.html',
+  './styles.css',
+  './app.js',
   './manifest.json',
   './icon.svg'
 ];
@@ -29,5 +30,3 @@ self.addEventListener('fetch', event => {
     )
   );
 });
-
-```
