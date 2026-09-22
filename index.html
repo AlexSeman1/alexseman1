@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#070a10">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="description" content="The Vigil is a personal tracker for daily rounds, long goals, finances, and gambling sessions.">
+  <meta name="description" content="The Vigil is a personal ledger for tracking revenue, expenses, and the account groups that organize them.">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css">
-  <title>The Vigil - Personal Ledger</title>
+  <title>The Vigil - Financial Ledger</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
 <body>
   <div id="snow" aria-hidden="true"></div>
   <div class="app">
-    <aside role="navigation" aria-label="Main Navigation">
+    <aside role="complementary" aria-label="Ledger info">
       <div class="brand">
         <div class="mark" aria-hidden="true">
           <svg width="24" height="24" viewBox="0 0 26 26" fill="none" aria-label="The Vigil Logo">
@@ -26,43 +26,10 @@
             <path d="M13 3.2c-1.6 1.9-2.5 2.4-4.2 1.8.6 1.4.3 2.4-.9 3.5-2.3.5-4.4 2-6 5.1 2-.9 3.5-1.1 4.5-.6-1.2 1.5-1.8 3.2-1.6 5.6 1.1-1.8 2.3-2.7 3.6-3 .1 1.8.8 3.1 2.7 4.4-.3-2 .1-3.4 1.8-4.5 1.7.9 2 2.5 1.8 4.5 1.3.3 2.5 1.5 3.6 3-1.8-.2-2.4 1.1-1.6 5.6 1 .5 2.5.3 4.5.6-1.6-3.1-3.7-4.6-6-5.1-1.2-1.1-1.5-2.1-.9-3.5-1.7.6-2.6.1-4.2-1.8z" fill="currentColor"/>
           </svg>
         </div>
-        <div class="brand-text">The Vigil<small>Personal Ledger</small></div>
+        <div class="brand-text">The Vigil<small>Financial Ledger</small></div>
       </div>
 
-      <nav role="tablist" aria-label="Navigation tabs">
-        <button class="nav-btn active" data-tab="daily" type="button" role="tab" aria-selected="true" aria-controls="daily">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <title>Daily Rounds Icon</title>
-            <path d="M3.5 9.3l3.2 3.2 7.8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Daily Rounds
-        </button>
-        <button class="nav-btn" data-tab="life" type="button" role="tab" aria-selected="false" aria-controls="life">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <title>Long Game Icon</title>
-            <path d="M4 15V3m0 1.2 9.7 2.2L4 8.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Long Game
-        </button>
-        <button class="nav-btn" data-tab="finance" type="button" role="tab" aria-selected="false" aria-controls="finance">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <title>Cold Cash Icon</title>
-            <circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M9 5.3v7.4M6.9 10.8c0 1 1 1.7 2.1 1.7s2.1-.6 2.1-1.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          Cold Cash
-        </button>
-        <button class="nav-btn" data-tab="gambling" type="button" role="tab" aria-selected="false" aria-controls="gambling">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <title>Gambling Icon</title>
-            <rect x="3.2" y="3.2" width="11.6" height="11.6" rx="2" stroke="currentColor" stroke-width="1.5"/>
-            <circle cx="6.5" cy="6.5" r="1" fill="currentColor"/>
-            <circle cx="9" cy="9" r="1" fill="currentColor"/>
-            <circle cx="11.5" cy="11.5" r="1" fill="currentColor"/>
-          </svg>
-          Gambling
-        </button>
-      </nav>
+      <p class="side-note">Revenue and expenses, sorted into the account groups you define.</p>
 
       <div class="side-status">
         Data stays on this device.
@@ -79,198 +46,94 @@
       <header class="hero">
         <div>
           <div class="eyebrow" id="greeting">Night watch</div>
-          <h1>Move quiet. Track everything.</h1>
-          <p>Daily discipline, long-range missions, cash flow, and gambling sessions in one frost-bitten command desk.</p>
+          <h1>Track every dollar, in and out.</h1>
+          <p>Know what came in, what went out, and how it breaks down across the account groups you keep.</p>
         </div>
         <div class="weather-chip">
-          <span>Tonight's Readout</span>
-          <strong id="readout">0 rounds</strong>
+          <span>Net Balance</span>
+          <strong id="readout">$0.00</strong>
         </div>
       </header>
 
-      <!-- Daily Rounds Section -->
-      <section id="daily" class="tab-content active" role="tabpanel" aria-labelledby="daily">
-        <div class="grid-2">
-          <div class="panel">
-            <div class="panel-head">
-              <div>
-                <h2>Daily Rounds</h2>
-                <p class="sub">Check off the day. When you show up, leave a quick field note for what happened.</p>
-              </div>
-            </div>
-            <form class="row" onsubmit="addDailyGoal(event)">
-              <label for="daily-input" class="sr-only">Daily round activity</label>
-              <input type="text" id="daily-input" placeholder="Train, read, stretch, no spend day..." required>
-              <button class="btn-add" type="submit">Add Round</button>
-            </form>
-            <ul class="item-list" id="daily-list" role="list"></ul>
-            <div id="daily-empty" class="empty">No daily rounds yet. Add the first signal you want to keep alive.</div>
+      <section id="finance" class="tab-content active" role="region" aria-label="Financial ledger">
+        <div class="summary-strip">
+          <div class="stat-card">
+            <div class="label">Total Revenue</div>
+            <div class="value good" id="total-income">$0.00</div>
           </div>
+          <div class="stat-card">
+            <div class="label">Total Expenses</div>
+            <div class="value bad" id="total-expenses">$0.00</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Net</div>
+            <div class="value" id="net-balance">$0.00</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Balance Trend</div>
+            <div class="value signal" id="balance-trend">0%</div>
+          </div>
+        </div>
 
-          <div class="panel">
-            <div class="panel-head">
-              <div>
-                <h2>Field Notes</h2>
-                <p class="sub">Recent notes from checked-off days.</p>
-              </div>
-            </div>
-            <div id="daily-notes" class="note-history" role="region" aria-label="Recent field notes"></div>
-            <div id="notes-empty" class="empty">No notes yet. Check off a round and write what moved.</div>
+        <div class="chart-row">
+          <div class="chart-box">
+            <h3>Monthly Overview</h3>
+            <canvas id="finance-chart"></canvas>
+          </div>
+          <div class="chart-box">
+            <h3>Expense Breakdown by Group</h3>
+            <canvas id="category-chart"></canvas>
           </div>
         </div>
 
         <div class="panel">
           <div class="panel-head">
             <div>
-              <h2>Last 12 Weeks</h2>
-              <p class="sub">Every square is a day. Brighter means more rounds completed.</p>
+              <h2>Account Groups</h2>
+              <p class="sub">Add, edit, or remove the groups you use to organize revenue and expenses.</p>
             </div>
           </div>
-          <div class="heatmap-wrap" role="img" aria-label="Activity heatmap for the last 12 weeks">
-            <div class="heatmap" id="heatmap"></div>
-          </div>
-          <div class="heatmap-legend">
-            Less <span class="cell"></span><span class="cell l1"></span><span class="cell l2"></span><span class="cell l3"></span><span class="cell l4"></span> More
-          </div>
-        </div>
-      </section>
-
-      <!-- Long Game Section -->
-      <section id="life" class="tab-content" role="tabpanel" aria-labelledby="life">
-        <div class="panel">
-          <div class="panel-head">
-            <div>
-              <h2>Long Game</h2>
-              <p class="sub">Big goals move when you break them into steps you can actually finish.</p>
-            </div>
-          </div>
-          <form class="row" onsubmit="addLifeGoal(event)">
-            <label for="life-input" class="sr-only">Long-term goal</label>
-            <input type="text" id="life-input" placeholder="Goal, e.g. Build emergency fund" required>
-            <label for="life-date-input" class="sr-only">Target date</label>
-            <input type="date" id="life-date-input" aria-label="Target date">
-            <button class="btn-add" type="submit">Add Goal</button>
+          <form class="row" id="group-form">
+            <label for="group-name-input" class="sr-only">Group name</label>
+            <input type="text" id="group-name-input" placeholder="Group name, e.g. Salary" required>
+            <label for="group-type-input" class="sr-only">Group type</label>
+            <select id="group-type-input" required>
+              <option value="revenue">Revenue</option>
+              <option value="expense">Expense</option>
+            </select>
+            <button class="btn-add" type="submit">Add Group</button>
           </form>
-          <div class="life-grid" id="life-list" role="list"></div>
-          <div id="life-empty" class="empty">No long-game goals yet. Name the one that needs a map.</div>
+          <ul class="item-list" id="group-list" role="list"></ul>
+          <div id="group-empty" class="empty">No account groups yet. Add one to start sorting your transactions.</div>
         </div>
-      </section>
 
-      <!-- Cold Cash Section -->
-      <section id="finance" class="tab-content" role="tabpanel" aria-labelledby="finance">
         <div class="panel">
           <div class="panel-head">
             <div>
-              <h2>Cold Cash</h2>
-              <p class="sub">Know what came in, what went out, and how much survived the storm.</p>
+              <h2>Transactions</h2>
+              <p class="sub">Log revenue and expenses against an account group.</p>
             </div>
           </div>
-          <div class="summary-strip">
-            <div class="stat-card">
-              <div class="label">Total Income</div>
-              <div class="value good" id="total-income">$0.00</div>
-            </div>
-            <div class="stat-card">
-              <div class="label">Total Expenses</div>
-              <div class="value bad" id="total-expenses">$0.00</div>
-            </div>
-            <div class="stat-card">
-              <div class="label">Net</div>
-              <div class="value" id="net-balance">$0.00</div>
-            </div>
-            <div class="stat-card">
-              <div class="label">Balance Trend</div>
-              <div class="value signal" id="balance-trend">0%</div>
-            </div>
-          </div>
-          <div class="chart-row">
-            <div class="chart-box">
-              <h3>Monthly Overview</h3>
-              <canvas id="finance-chart"></canvas>
-            </div>
-            <div class="chart-box">
-              <h3>Category Breakdown</h3>
-              <canvas id="category-chart"></canvas>
-            </div>
-          </div>
-          <form class="row" onsubmit="addTransaction(event)">
+          <form class="row" id="tx-form">
             <label for="tx-description" class="sr-only">Transaction description</label>
             <input type="text" id="tx-description" placeholder="Description" required>
             <label for="tx-amount" class="sr-only">Transaction amount</label>
-            <input type="number" id="tx-amount" placeholder="Amount" step="0.01" required>
-            <label for="tx-category" class="sr-only">Transaction category</label>
-            <select id="tx-category" required>
-              <option value="">Category</option>
-              <option value="income">Income</option>
-              <option value="expense">Expense</option>
-              <option value="savings">Savings</option>
+            <input type="number" id="tx-amount" placeholder="Amount" min="0.01" step="0.01" required>
+            <label for="tx-group" class="sr-only">Account group</label>
+            <select id="tx-group" required>
+              <option value="">Group</option>
             </select>
             <label for="tx-date" class="sr-only">Transaction date</label>
             <input type="date" id="tx-date" required>
             <button class="btn-add" type="submit">Add Transaction</button>
           </form>
+          <div class="segmented" id="tx-filter" role="group" aria-label="Filter transactions">
+            <button type="button" data-filter="all" class="active">All</button>
+            <button type="button" data-filter="revenue">Revenue</button>
+            <button type="button" data-filter="expense">Expense</button>
+          </div>
           <div id="transaction-list" role="list"></div>
           <div id="finance-empty" class="empty">No transactions yet. Track your flow.</div>
-        </div>
-      </section>
-
-      <!-- Gambling Sessions Section -->
-      <section id="gambling" class="tab-content" role="tabpanel" aria-labelledby="gambling">
-        <div class="panel gamble-panel">
-          <div class="panel-head">
-            <div>
-              <h2>Gambling Sessions</h2>
-              <p class="sub">Keep the house honest. Every session logged.</p>
-            </div>
-          </div>
-          <form class="row" onsubmit="addGamblingSession(event)">
-            <label for="gamble-type" class="sr-only">Game type</label>
-            <select id="gamble-type" required>
-              <option value="">Game Type</option>
-              <option value="poker">Poker</option>
-              <option value="blackjack">Blackjack</option>
-              <option value="slots">Slots</option>
-              <option value="sports">Sports Betting</option>
-              <option value="other">Other</option>
-            </select>
-            <label for="gamble-stake" class="sr-only">Stake amount</label>
-            <input type="number" id="gamble-stake" placeholder="Stake ($)" step="0.01" required>
-            <label for="gamble-result" class="sr-only">Win or loss amount</label>
-            <input type="number" id="gamble-result" placeholder="Win/Loss ($)" step="0.01" required>
-            <label for="gamble-duration" class="sr-only">Session duration (minutes)</label>
-            <input type="number" id="gamble-duration" placeholder="Duration (min)" required>
-            <button class="btn-add" type="submit">Log Session</button>
-          </form>
-          <div class="summary-strip">
-            <div class="stat-card">
-              <div class="label">Sessions Logged</div>
-              <div class="value" id="session-count">0</div>
-            </div>
-            <div class="stat-card">
-              <div class="label">Total Wagered</div>
-              <div class="value signal" id="total-wagered">$0.00</div>
-            </div>
-            <div class="stat-card">
-              <div class="label">Total Win/Loss</div>
-              <div class="value" id="total-result">$0.00</div>
-            </div>
-            <div class="stat-card">
-              <div class="label">ROI</div>
-              <div class="value" id="roi">0%</div>
-            </div>
-          </div>
-          <div class="chart-row">
-            <div class="chart-box">
-              <h3>Session Results Over Time</h3>
-              <canvas id="gamble-chart"></canvas>
-            </div>
-            <div class="chart-box">
-              <h3>Game Type Distribution</h3>
-              <canvas id="game-type-chart"></canvas>
-            </div>
-          </div>
-          <div id="session-list" role="list"></div>
-          <div id="gamble-empty" class="empty">No sessions logged yet. Track your plays.</div>
         </div>
       </section>
     </main>

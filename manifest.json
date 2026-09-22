@@ -1,8 +1,7 @@
-```json
 {
-  "name": "The Vigil - Personal Ledger",
+  "name": "The Vigil - Financial Ledger",
   "short_name": "The Vigil",
-  "description": "A personal tracker for daily rounds, long goals, finances, and gambling sessions.",
+  "description": "A personal ledger for tracking revenue, expenses, and the account groups that organize them.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#070a10",
@@ -17,5 +16,3 @@
     }
   ]
 }
-
-```
